@@ -7,20 +7,6 @@ searchContainer.append(`<form action="#" method="get">
                             <input type="submit" value="&#x1F50D;" id="serach-submit" class="search-submit">
                         </form>`);
 
-let cardContainer = `<div class="card">
-                            <div class="card-img-container">
-                                <img class="card-img" src="https://placehold.it/90x90" alt="profile picture">
-                            </div>
-                            <div class="card-info-container">
-                                <h3 id="name" class="card-name cap"></h3>
-                                <p class="card-text">email</p>
-                                <p class="card-text cap">city, state</p>
-                            </div>
-                        </div>`
-
-
-
-
 
 
 const randomUser = 'https://randomuser.me/api/?results=12';
@@ -50,7 +36,15 @@ const getEmail = (arr) => {
     return emails;
 }
 
-const generateContainer = (names, email, picture) => {
+const getCityState = (arr) => {
+    let cityState = [];
+    for (let i = 0; i < arr.length; i++) {
+       cityState.push(arr[i].location.city)
+    }
+    return cityState;
+}
+
+const generateContainer = (names, email, picture, citystate) => {
     
      let newCard = '';
 
@@ -62,7 +56,7 @@ const generateContainer = (names, email, picture) => {
                             <div class="card-info-container">
                                 <h3 id="name" class="card-name cap">${names[i]}</h3>
                                 <p class="card-text">${email[i]}</p>
-                                <p class="card-text cap">city, state</p>
+                                <p class="card-text cap">${citystate[i]}</p>
                             </div>
                         </div>`
         newCard += cardContainer
@@ -72,10 +66,9 @@ const generateContainer = (names, email, picture) => {
 
 
 
-const apiRequest = (url) => {
-    return fetch(url)
-            .then(val => val.json())
-            //.then(val => console.log(val));
+const apiRequest = async (url) => {
+    const val = await fetch(url);
+    return await val.json();
 }
 
 
@@ -86,7 +79,9 @@ apiRequest(randomUser)
         const pictures = getPictures(results);
         const names = getName(results);
         const emails = getEmail(results);
-        generateContainer(names, emails, pictures);
+        const cityState = getCityState(results)
+        generateContainer(names, emails, pictures, cityState);
+        return val;
     })
     //.then(val => generateContainer(val))
     //.then(val => appendName(val))
