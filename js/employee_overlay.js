@@ -18,4 +18,20 @@ const modalContainer = `<div class="modal-container">
 
                     
 
+const generateOverlay = (arr) => {
+    const results = arr.results;
+    const pictures = getPictures(results);
+    const names = getName(results);
+    const emails = getEmail(results);
+    const city = getCity(results);
+    const numbers = getNumber(results);
+    const addresses = getFullAddress(results);
+    const birthdays = getBirthdays(results);
+
+    let overlay = '';
+
+
+    console.log(birthdays);
+}
+
 

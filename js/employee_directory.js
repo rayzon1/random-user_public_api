@@ -12,39 +12,38 @@ searchContainer.append(`<form action="#" method="get">
 const randomUser = 'https://randomuser.me/api/?results=12';
 
 const getPictures = (arr) => {
-    let pictures = []
-    for (let i = 0; i < arr.length; i ++) {
-        pictures.push(arr[i].picture.large);   
-    }
-    return pictures;
+    return arr.map(val => val.picture.large);
 }
 
-
 const getName = (arr) => {
-    let names = [];
-    for (let i = 0; i < arr.length; i ++){
-        names.push(arr[i].name.first + ' ' + arr[i].name.last);
-    }
-    return names;
+    return arr.map(val => val.name.first + ' ' + val.name.last);
 }
 
 const getEmail = (arr) => {
-    let emails = [];
-    for (let i = 0; i < arr.length; i++) {
-        emails.push(arr[i].email);
-    }
-    return emails;
+    return arr.map(val => val.email);
 }
 
-const getCityState = (arr) => {
-    let cityState = [];
-    for (let i = 0; i < arr.length; i++) {
-       cityState.push(arr[i].location.city)
-    }
-    return cityState;
+const getCity = (arr) => {
+    return arr.map(val => val.location.city);
 }
 
-const generateContainer = (names, email, picture, citystate) => {
+const getNumber = (arr) => {
+    return arr.map(val => val.cell);
+}
+
+const getFullAddress = (arr) => {
+    return arr.map(val => `${val.location.street}, ${val.location.state} ${val.location.postcode}`)
+}
+
+const getBirthdays = (arr) => {
+    const regex = /^(\d{4})-?(\d{2})-?(\d{2}?)?\D.*$/;
+    return arr.map(val => {
+            let date = val.dob.date;
+            return date.replace(regex, "$2/$3/$1");
+        })
+}
+
+const generateContainer = (names, email, picture, city) => {
     
      let newCard = '';
 
@@ -56,7 +55,7 @@ const generateContainer = (names, email, picture, citystate) => {
                             <div class="card-info-container">
                                 <h3 id="name" class="card-name cap">${names[i]}</h3>
                                 <p class="card-text">${email[i]}</p>
-                                <p class="card-text cap">${citystate[i]}</p>
+                                <p class="card-text cap">${city[i]}</p>
                             </div>
                         </div>`
         newCard += cardContainer
@@ -74,14 +73,16 @@ const apiRequest = async (url) => {
 
 apiRequest(randomUser)
     .then(val => {
-        console.log(val)
+        //console.log(val)
         const results = val.results
         const pictures = getPictures(results);
         const names = getName(results);
         const emails = getEmail(results);
-        const cityState = getCityState(results)
+        const cityState = getCity(results)
         generateContainer(names, emails, pictures, cityState);
         return val;
     })
-    //.then(val => generateContainer(val))
+    .then(val => generateOverlay(val))
     //.then(val => appendName(val))
+
+    
