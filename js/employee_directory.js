@@ -1,15 +1,7 @@
 const searchContainer = $('.search-container');
 const galleryContainer = $('.gallery');
 const cardName = $('.card-name');
-
-searchContainer.append(`<form action="#" method="get">
-                            <input type="search" id="search-input" class="search-input" placeholder="Search...">
-                            <input type="submit" value="&#x1F50D;" id="serach-submit" class="search-submit">
-                        </form>`);
-
-
-
-const randomUser = 'https://randomuser.me/api/?results=12';
+const randomUser = 'https://randomuser.me/api/?results=12&nat=us';
 
 const getPictures = (arr) => {
     return arr.map(val => val.picture.large);
@@ -32,7 +24,9 @@ const getNumber = (arr) => {
 }
 
 const getFullAddress = (arr) => {
-    return arr.map(val => `${val.location.street}, ${val.location.state} ${val.location.postcode}`)
+    return arr.map(val => {
+        return `${val.location.street.charAt(5).toUpperCase() + val.location.street.slice(6)}, ${val.location.state} ${val.location.postcode}`
+    })
 }
 
 const getBirthdays = (arr) => {
