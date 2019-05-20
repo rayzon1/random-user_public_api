@@ -90,7 +90,7 @@ header h1 {
     /* background: rgba(245, 245, 245, 0.9); */
     background: rgb(249, 249, 249);
     border-radius: 0.25em;
-    border: 1px solid rgba(50, 50, 50, 0.3);
+    /* border: 1px solid rgba(50, 50, 50, 0.3); */
     transition: .4s ease-out;
     overflow: hidden;
 }
