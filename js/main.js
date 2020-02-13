@@ -121,13 +121,13 @@ $(document).on("mouseleave", ".card", function() {
 $(document).on("click", "#search-submit", function(event) {
   event.preventDefault();
   const $cards = $(".card");
-  let searchInput = $("#search-input")[0].value;
+  let searchInput = $("#search-input")[0].value.toLowerCase();
   $.each($cards, function(i, val) {
     let allNames = $(this)
       .children()
       .children()[1].innerHTML;
     console.log(allNames);
-    allNames.includes(searchInput) ? $(val).show() : $(val).hide();
+    allNames.toLowerCase().includes(searchInput) ? $(val).show() : $(val).hide();
   });
 });
 
