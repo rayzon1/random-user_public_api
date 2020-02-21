@@ -1,5 +1,5 @@
 # random-user_public_api
-TEAM TREEHOUSE PUBLIC API USER GENERATOR PROJECT
+PUBLIC API USER GENERATOR PROJECT
 
 CSS Styles added: 
   Blue background added to body. 
